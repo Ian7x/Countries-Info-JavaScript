@@ -20,9 +20,45 @@ searchBtn.addEventListener("click", () => {
         result.innerHTML = "<h3>No country found with that name.</h3>";
         return;
       }
-		console.log(data[0]);
-		console.log(data[0].capital[0]);
 
+      const countryData = data[0];
+      const flagImg = `<img src="${countryData.flags.svg}" class="flag-img">`;
+      backgroundDiv.style.backgroundImage = `url(${countryData.flags.svg})`;
+      const countryInfo = `
+        <h2>${countryData.name.common}</h2>
+        <div class="wrapper">
+        <div class="data-wrapper">
+            <h4>Continent:</h4>
+            <span>${countryData.continents[0]}</span>
+        </div>
+      </div>
+        <div class="wrapper">
+          <div class="data-wrapper">
+              <h4>Capital:</h4>
+              <span>${countryData.capital[0]}</span>
+          </div>
+        </div>
+        <div class="wrapper">
+          <div class="data-wrapper">
+              <h4>Population:</h4>
+              <span>${countryData.population}</span>
+          </div>
+        </div>
+        <div class="wrapper">
+          <div class="data-wrapper">
+              <h4>Currencies:</h4>
+              <span>${Object.keys(countryData.currencies)[0]}</span>
+          </div>
+        </div>
+        <div class="wrapper">
+          <div class="data-wrapper">
+              <h4>Languages:</h4>
+              <span>${Object.values(countryData.languages).join(", ")}</span>
+          </div>
+        </div>
+      `;
+
+      result.innerHTML = flagImg + countryInfo;
     })
     .catch((error) => {
       console.error(error);
